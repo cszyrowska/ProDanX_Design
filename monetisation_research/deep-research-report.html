@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>deep-research-report.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> or <div class="page"></div> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="profit-models-for-a-customisable-community-app-business">Profit Models for a Customisable Community App Business</h1>
+<h2 id="what-the-market-already-proves">What the market already proves</h2>
+<p>The clearest pattern in the market is that businesses do <strong>not</strong> usually make money from only one source. In fitness and wellness software, platforms such as entity[&quot;company&quot;,&quot;TeamUp&quot;,&quot;fitness software&quot;], entity[&quot;company&quot;,&quot;ABC Trainerize&quot;,&quot;fitness software&quot;], entity[&quot;company&quot;,&quot;PushPress&quot;,&quot;gym software&quot;], entity[&quot;company&quot;,&quot;Arketa&quot;,&quot;wellness software&quot;], and entity[&quot;company&quot;,&quot;Momence&quot;,&quot;booking platform&quot;] combine recurring software fees with other revenue levers such as active-customer pricing, branded app fees, add-ons, and payment processing. Public examples include TeamUp starting at $119/month for 0–100 customers, PushPress charging $81–$97/month for a branded app add-on, Arketa charging a 3% transaction fee plus Stripe fees on some plans, and Momence publishing UK online card processing at 2.5% + 20p. citeturn14view0turn14view4turn15view3turn14view3turn15view1turn23view0</p>
+<p>Community-first platforms follow the same logic. entity[&quot;company&quot;,&quot;Circle&quot;,&quot;community platform&quot;] and entity[&quot;company&quot;,&quot;Mighty Networks&quot;,&quot;community platform&quot;] both let hosts sell recurring memberships, one-off events, and other paid access, while also taking transaction fees. Circle publicly lists plans from $89/month and 2%, 1%, or 0.5% transaction fees depending on the plan, while Mighty Networks supports subscriptions, one-time payments, events, branded payments, and transaction fees that vary by plan. citeturn16view0turn31view0turn14view2turn27view4turn27view5</p>
+<p>White-label app builders use the same principle from a different angle. entity[&quot;company&quot;,&quot;Buildfire&quot;,&quot;app builder&quot;], entity[&quot;company&quot;,&quot;GoodBarber&quot;,&quot;app builder&quot;], entity[&quot;company&quot;,&quot;MobiLoud&quot;,&quot;app service&quot;], and entity[&quot;company&quot;,&quot;AppInstitute&quot;,&quot;app builder&quot;] all show that app-making businesses commonly earn through monthly subscriptions, one-time setup fees, publishing support, paid extras, and reseller revenue. Buildfire starts at $165/month and explicitly says resellers can create their own pricing, including monthly, annual, one-time, add-ons, and maintenance fees. MobiLoud charges a monthly fee plus one-time setup fees. GoodBarber sells an unlimited-app reseller plan and separately charges for optional publication support. AppInstitute also runs a partner model with a stated 50% recurring revenue share. citeturn15view5turn15view6turn15view7turn18view0turn28view0turn28view1turn22view1</p>
+<p>The biggest takeaway for your business is simple: <strong>you can present one clear all-in-one offer to the client, while still building several revenue engines behind the scenes</strong>. That is exactly how the strongest businesses in this space operate. citeturn15view6turn16view2turn22view1</p>
+<h2 id="the-revenue-models-that-fit-your-app-best">The revenue models that fit your app best</h2>
+<h3 id="setup-and-launch-fee">Setup and launch fee</h3>
+<p>This is the most natural first revenue stream for your business. Even if your codebase is modular and reusable, each client still needs branding, configuration, onboarding, testing, and app-store preparation. The market shows this clearly: MobiLoud charges monthly plus one-time setup fees, Trainerize treats its custom branded app as a one-time paid add-on on some plans, and GoodBarber sells paid submission support for launching apps into stores. citeturn15view7turn23view0turn28view1</p>
+<p>For your business, this means you can sell a <strong>single “app launch” price</strong> that includes discovery, choosing the right components, styling the app, loading the initial content, setting up the booking logic, and preparing launch assets. The client still feels like they are buying one complete product, not a menu of extras.</p>
+<p>This is a strong profit model because your real delivery cost should fall over time as your internal app library grows. In other words, your sale price stays fairly healthy while your build time drops.</p>
+<h3 id="monthly-platform-and-maintenance-fee">Monthly platform and maintenance fee</h3>
+<p>This should be your main profit engine. Recurring monthly revenue is the backbone of almost every comparable platform in the market. TeamUp, Buildfire, MobiLoud, AppInstitute, Circle, and a wide range of similar businesses all rely heavily on monthly or annual recurring software income. citeturn14view0turn15view5turn15view7turn22view0turn16view0turn27view4</p>
+<p>For you, the monthly fee can be explained very simply to the client: it covers hosting, maintenance, updates, analytics, push notifications, bug fixes, compatibility changes, and support. That keeps the client offer very clean. They are paying one standing order to keep the full app alive and improving.</p>
+<p>This is also the most scalable model because once a client is live, most of the work becomes maintenance rather than rebuild work. In a modular system, that usually means very strong margins over time.</p>
+<h3 id="size-based-pricing-without-selling-extra-features">Size-based pricing without selling “extra features”</h3>
+<p>You said you do not want clients paying separately for different features. That makes sense. A good solution is to keep a single all-in-one app offer but price it by <strong>business size</strong>, not by feature list.</p>
+<p>This is common in the market. TeamUp prices publicly by active customer count. Buildfire and community platforms use plan tiers based on scale, limits, support, and usage rather than purely on one feature. Exercise.com also highlights multi-location and custom-branded apps as part of larger business operations. citeturn14view0turn15view5turn31view0turn30view1</p>
+<p>For your business, that could mean:</p>
+<ul>
+<li>solo or small studio price</li>
+<li>growing studio price</li>
+<li>multi-site or franchise price</li>
+</ul>
+<p>The client still hears one clean pitch: “this includes the whole app.” The difference is simply how large and operationally demanding their business is.</p>
+<h3 id="payment-margin-or-transaction-fee">Payment margin or transaction fee</h3>
+<p>This is one of the most important revenue models for you to consider because it directly matches your idea of taking a small percentage of what your clients process.</p>
+<p>entity[&quot;company&quot;,&quot;Stripe&quot;,&quot;payments platform&quot;] makes this possible through Connect. Its own documentation is explicit that a SaaS platform can charge both <strong>a per-transaction platform fee</strong> and <strong>a monthly service fee</strong>, and that platforms can collect fees from payments routed through connected accounts. citeturn14view11turn14view12turn16view2</p>
+<p>In plain English, that means your app could handle class bookings, memberships, private sessions, and package sales, while automatically keeping a small slice of each payment before the rest is sent to the client.</p>
+<p>This is attractive because:</p>
+<ul>
+<li>the client pays more only when they make more</li>
+<li>your revenue scales with their success</li>
+<li>it can be embedded quietly into one “all-in-one app” offer</li>
+</ul>
+<p>The downside is complexity. Payments bring KYC checks, disputes, refunds, compliance, and support duties. The good news is that payment infrastructure providers reduce a lot of this operational burden. citeturn15view10turn14view13</p>
+<h3 id="end-user-premium-subscriptions-inside-the-clients-app">End-user premium subscriptions inside the client’s app</h3>
+<p>This is probably your best second-stage revenue stream after the monthly platform fee.</p>
+<p>It works like this: the business gets the full app, but <strong>their own members</strong> can choose to pay for a premium layer inside that app. For a yoga brand, that might mean premium meditation packs, recovery tracks, nutritional coaching, or recorded classes. For a martial arts school, it could mean technique drills, strength plans, belt tracking challenges, or premium accountability groups. Community platforms already prove that people will pay for recurring access, one-time events, courses, and upsells inside a branded space. Circle and Mighty Networks both support recurring memberships and other paid offers. citeturn31view0turn27view4turn27view5</p>
+<p>This is especially attractive for your concept because your core selling point is community. A premium layer inside a trusted private community often feels more valuable than a freestanding digital product. It feels like membership, belonging, motivation, and accountability.</p>
+<p>The main warning is app-store billing. If a purchase is treated as a digital good sold through mobile app stores, commission can materially reduce your margin. entity[&quot;company&quot;,&quot;Apple&quot;,&quot;technology company&quot;] says App Store digital goods and services are generally subject to 30% commission, reduced to 15% in some cases, and entity[&quot;company&quot;,&quot;Google&quot;,&quot;technology company&quot;] lists 15% for automatically renewing subscription products and 15% on the first $1m for developers in the lower service-fee tier. That means this model is excellent, but only if you design the billing flow carefully and keep store rules in mind. citeturn15view13turn14view15turn15view14</p>
+<h3 id="revenue-share-on-digital-programmes-workshops-and-events">Revenue share on digital programmes, workshops, and events</h3>
+<p>This is very close to the premium subscription model, but it deserves its own category because it can produce large one-off spikes in revenue.</p>
+<p>Your clients can sell:</p>
+<ul>
+<li>workshops</li>
+<li>retreats</li>
+<li>challenge months</li>
+<li>teacher training</li>
+<li>belt grading prep programmes</li>
+<li>nutrition plans</li>
+<li>seasonal programmes</li>
+<li>on-demand video packs</li>
+</ul>
+<p>TeamUp explicitly markets on-demand content and online classes as extra revenue streams for yoga studios, and community platforms support one-time events and paid access too. citeturn30view4turn27view4turn31view0</p>
+<p>A simple arrangement could be that you keep a percentage of these sales, or you charge your client a blended base fee that assumes revenue-share income will also be generated. This is often more attractive than relying only on app subscriptions because businesses already understand how to sell events and workshops.</p>
+<h3 id="app-store-publishing-compliance-and-admin-fees">App-store publishing, compliance, and admin fees</h3>
+<p>This is not the sexiest model, but it is real money and it is easy to justify.</p>
+<p>For white-label apps, each client often needs their own store accounts. GoodBarber’s reseller help explains that apps published on behalf of clients should use the client’s own developer accounts, and it lists Apple Developer accounts at $99/year and Google Play accounts at $25 one-time. It also sells publication support as a paid credit-based service. citeturn28view0turn28view1turn15view13turn17search0</p>
+<p>That means you can charge:</p>
+<ul>
+<li>an annual “store management” fee</li>
+<li>a submission / resubmission fee</li>
+<li>a compliance admin fee</li>
+<li>a managed release fee for app updates</li>
+</ul>
+<p>This will not be your biggest revenue stream, but it stops app-store admin becoming unpaid labour.</p>
+<h3 id="marketplace-and-discovery-fees">Marketplace and discovery fees</h3>
+<p>This is a later-stage model, but it has very high upside.</p>
+<p>entity[&quot;company&quot;,&quot;Mindbody&quot;,&quot;wellness software&quot;] already sells discovery by giving businesses access to 3M+ monthly shoppers in its app, and entity[&quot;company&quot;,&quot;ClassPass&quot;,&quot;fitness marketplace&quot;] positions itself as a way to fill empty spots and generate incremental revenue with no upfront listing cost. ClassPass says it operates in 31 countries and works with tens of thousands of businesses globally. citeturn15view4turn14view24turn14view25turn26view0</p>
+<p>Your version would be an umbrella discovery layer across your client network. A user could search classes, workshops, guest events, or collaborations across your wider platform ecosystem. You could then charge:</p>
+<ul>
+<li>a referral fee per booking</li>
+<li>a lead fee</li>
+<li>a commission on marketplace-generated bookings</li>
+<li>a featured placement fee</li>
+</ul>
+<p>This only becomes powerful once you have enough clients for the marketplace to be useful, so it is not a day-one model. But once a network exists, it can become one of the strongest profit engines in the whole business.</p>
+<h3 id="sponsorship-ads-and-affiliate-revenue">Sponsorship, ads, and affiliate revenue</h3>
+<p>This is possible, but it should be treated carefully.</p>
+<p>GoodBarber openly supports AdMob, Ad Manager, internal ad servers, and app monetisation through advertising. Circle also supports affiliate and conversion tracking. citeturn27view0turn27view1turn27view2turn27view3turn31view0</p>
+<p>So yes, you could earn from:</p>
+<ul>
+<li>banner or interstitial ads</li>
+<li>challenge sponsors</li>
+<li>“powered by” sponsors on events</li>
+<li>local partner offers</li>
+<li>supplement or apparel affiliate links</li>
+<li>equipment partner deals</li>
+<li>teacher certification referrals</li>
+</ul>
+<p>The risk is that your main selling point is <strong>community and trust</strong>. Bad ads can cheapen that very quickly. Because of that, sponsorship and affiliate deals are usually better than generic ad clutter. A sponsored challenge or branded reward programme feels much more natural than random banners.</p>
+<h3 id="franchise-and-enterprise-licensing">Franchise and enterprise licensing</h3>
+<p>This is one of the best long-term revenue models if your product works well.</p>
+<p>Multi-location fitness and wellness businesses are already a clear software target. Mindbody promotes multi-location management, Exercise.com highlights multi-location features, and TeamUp’s yoga and martial arts pages openly discuss franchise growth and multi-site use. citeturn26view0turn30view1turn30view3turn30view4</p>
+<p>For you, this means you can sell:</p>
+<ul>
+<li>a headquarters licence</li>
+<li>a per-location monthly fee</li>
+<li>branded sub-communities by branch, coach, or region</li>
+<li>central reporting and local autonomy</li>
+<li>rollout fees for each new location</li>
+</ul>
+<p>One enterprise or franchise client can be worth the same as many small single-site clients, so this model is very attractive even if sales cycles are longer.</p>
+<h3 id="agency-or-reseller-partner-programmes">Agency or reseller partner programmes</h3>
+<p>This is one of the best ways to scale globally without building a big direct sales team.</p>
+<p>Buildfire says resellers can create their own monthly, annual, one-time, and add-on pricing. AppInstitute runs a partner model with 50% recurring revenue share and explicitly presents it as a scalable app-reseller business. GoodBarber also sells unlimited-app reseller plans. citeturn15view6turn22view1turn18view0turn15view0</p>
+<p>That means you could eventually let:</p>
+<ul>
+<li>marketing agencies</li>
+<li>fitness consultants</li>
+<li>local digital freelancers</li>
+<li>franchise consultants</li>
+<li>studio business coaches</li>
+</ul>
+<p>sell your apps for you in return for a recurring share. This can lower your customer acquisition cost and open new countries faster than building every region yourself.</p>
+<h2 id="simple-revenue-estimates-for-each-idea">Simple revenue estimates for each idea</h2>
+<p>The figures below are <strong>illustrative only</strong>. They are not forecasts. They are simple examples showing how each model could work if you used sensible, mid-range pricing.</p>
+<table>
+<thead>
+<tr>
+<th>Revenue model</th>
+<th style="text-align:right">Example assumption</th>
+<th style="text-align:right">Example annual revenue</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Setup / launch fee</td>
+<td style="text-align:right">12 new clients per year at £1,500 each</td>
+<td style="text-align:right"><strong>£18,000</strong></td>
+</tr>
+<tr>
+<td>Monthly platform fee</td>
+<td style="text-align:right">25 clients at £249 per month</td>
+<td style="text-align:right"><strong>£74,700</strong></td>
+</tr>
+<tr>
+<td>Size / location uplift</td>
+<td style="text-align:right">10 larger clients paying £150 extra per month</td>
+<td style="text-align:right"><strong>£18,000</strong></td>
+</tr>
+<tr>
+<td>Payment margin</td>
+<td style="text-align:right">30 clients processing £8,000/month each, 0.75% platform fee</td>
+<td style="text-align:right"><strong>£21,600</strong></td>
+</tr>
+<tr>
+<td>Premium member subscription share</td>
+<td style="text-align:right">20 clients, 40 members each, £12/month premium access, you keep 15%</td>
+<td style="text-align:right"><strong>£17,280</strong></td>
+</tr>
+<tr>
+<td>Digital programmes / workshop share</td>
+<td style="text-align:right">15 clients selling £1,000/month in digital offers, you keep 10%</td>
+<td style="text-align:right"><strong>£18,000</strong></td>
+</tr>
+<tr>
+<td>App-store admin fee</td>
+<td style="text-align:right">50 clients paying £150/year for store admin</td>
+<td style="text-align:right"><strong>£7,500</strong></td>
+</tr>
+<tr>
+<td>Marketplace lead / booking fees</td>
+<td style="text-align:right">2,000 network bookings per month at £1 each</td>
+<td style="text-align:right"><strong>£24,000</strong></td>
+</tr>
+<tr>
+<td>Sponsorship management</td>
+<td style="text-align:right">20 sponsor slots at £200/month, you keep 25%</td>
+<td style="text-align:right"><strong>£12,000</strong></td>
+</tr>
+<tr>
+<td>Affiliate commissions</td>
+<td style="text-align:right">100 referred sales/month at £5 average commission</td>
+<td style="text-align:right"><strong>£6,000</strong></td>
+</tr>
+<tr>
+<td>Franchise / enterprise contracts</td>
+<td style="text-align:right">3 larger clients at £1,500/month each</td>
+<td style="text-align:right"><strong>£54,000</strong></td>
+</tr>
+<tr>
+<td>Reseller / partner channel</td>
+<td style="text-align:right">20 partner-sold clients with £140/month retained by you</td>
+<td style="text-align:right"><strong>£33,600</strong></td>
+</tr>
+</tbody>
+</table>
+<p>What this shows is that <strong>the monthly platform fee should be the base</strong>, while payment margin, premium subscriptions, digital sales, and enterprise contracts are the strongest extra layers. Admin fees and affiliate revenue are useful, but they are supporting income rather than the core engine.</p>
+<h2 id="which-ideas-are-strongest-and-which-should-come-later">Which ideas are strongest and which should come later</h2>
+<p>The strongest immediate model is a <strong>three-part core</strong>:</p>
+<ol>
+<li>one-time launch fee,</li>
+<li>monthly platform fee,</li>
+<li>small payment margin on bookings and memberships.</li>
+</ol>
+<p>That combination is the most practical because it gives you:</p>
+<ul>
+<li>upfront cash,</li>
+<li>predictable recurring income,</li>
+<li>growth-linked upside when your clients do more business.</li>
+</ul>
+<p>The best second layer is <strong>end-user premium revenue</strong>. That includes paid community tiers, on-demand content, challenge programmes, or AI-supported premium experiences. It fits your app concept especially well because your core value is engagement and belonging, not just booking. Community businesses already prove that recurring access and event sales work well inside branded spaces. citeturn31view0turn27view4turn14view2</p>
+<p>The best later-stage scale model is <strong>marketplace plus enterprise plus partner channels</strong>. Marketplace revenue only works when you have enough supply. Enterprise revenue takes longer to close. Partner programmes need a mature product and support process. But together, these are the models that could turn a good software business into a much larger one. citeturn26view0turn15view6turn22view1</p>
+<p>The weakest model for your particular concept is generic ad clutter. Ads are technically easy to add, and app builders support them, but they are the least aligned with your “community and private family” positioning. Sponsorships can work. Spammy advertising usually damages the experience. citeturn27view0turn27view1turn27view2</p>
+<h2 id="how-going-global-can-increase-profit">How going global can increase profit</h2>
+<p>The global opportunity is real. The entity[&quot;organization&quot;,&quot;Health &amp; Fitness Association&quot;,&quot;industry trade body&quot;] says average fitness industry revenue rose 8% between 2023 and 2024 across comparable markets, while facilities rose nearly 4% and membership rose 6%. The entity[&quot;organization&quot;,&quot;Global Wellness Institute&quot;,&quot;wellness research body&quot;] says the wellness economy reached $6.8 trillion in 2024 and is forecast to hit $9.8 trillion by 2029. That matters because your product sits at the overlap of fitness, wellness, recurring memberships, and community. citeturn14view22turn15view8turn14view23turn15view9</p>
+<p>The app-store side also supports global expansion. Apple says an app can be released in all 175 countries or regions of the App Store, and Google Play publishes paid apps in many countries worldwide. Google Play also supports broad localisation of store listings, app strings, and translated in-app products. citeturn15view12turn14view18turn16view1</p>
+<p>Payments are a major part of this. Stripe Connect says platforms can let users accept 135+ currencies and dozens of payment methods globally, and Adyen stresses that local payment methods help businesses reach more customers and improve approval rates. citeturn15view10turn15view11</p>
+<p>In practical terms, the smartest expansion path is to start with markets that minimise support and localisation friction, such as entity[&quot;country&quot;,&quot;United Kingdom&quot;,&quot;europe&quot;], the entity[&quot;country&quot;,&quot;United States&quot;,&quot;north america&quot;], entity[&quot;country&quot;,&quot;Canada&quot;,&quot;north america&quot;], and entity[&quot;country&quot;,&quot;Australia&quot;,&quot;oceania&quot;], then widen into translated European and other international markets once your onboarding, billing, and support processes are stable. That lets you reuse the same core codebase while unlocking more clients and more end-user payments in each region. The same product can therefore produce <strong>more revenue without needing a brand-new build for every country</strong>. citeturn15view12turn16view1turn15view10</p>
+<p>An especially strong global play would be a <strong>partner-led expansion model</strong>. Instead of hiring salespeople everywhere, you let local agencies or consultants sell the product in their own territory. The market already shows that this works in white-label app businesses. citeturn15view6turn22view1turn18view0</p>
+<h2 id="the-best-businesses-to-target-first">The best businesses to target first</h2>
+<p>Your best-fit customers are the businesses where <strong>community increases retention</strong>, where members come back repeatedly, and where instructors are trusted leaders rather than one-off service providers.</p>
+<p>The strongest first group is:</p>
+<ul>
+<li>yoga and Pilates studios,</li>
+<li>martial arts and jiu-jitsu schools,</li>
+<li>personal trainers and small-group PT businesses,</li>
+<li>boutique fitness studios,</li>
+<li>sports training facilities and youth sports clubs,</li>
+<li>meditation and wellness centres.</li>
+</ul>
+<p>That is not just theory. TeamUp has dedicated solutions for yoga, martial arts, and sports facilities; Mindbody publicly categorises fitness, group training, martial arts, personal training, sports facilities, yoga, wellness centres, spas, and beauty businesses; and Exercise.com markets to fitness businesses with booking, custom-branded apps, multi-location features, and even corporate wellness programmes. citeturn30view4turn30view3turn30view2turn26view0turn30view1turn30view0</p>
+<p>The next strong group is businesses adjacent to fitness where community still matters:</p>
+<ul>
+<li>dance schools,</li>
+<li>climbing and running clubs,</li>
+<li>swim schools,</li>
+<li>recovery and mobility brands,</li>
+<li>wellness retreat operators,</li>
+<li>corporate wellness providers.</li>
+</ul>
+<p>The corporate wellness angle is especially interesting because Exercise.com already frames custom-branded fitness apps as a way to run employee wellness programmes, challenges, reminders, assessments, and payments. That suggests your community-first model could adapt well to employer-funded wellness circles, local office communities, or hybrid wellbeing programmes. citeturn30view0</p>
+<p>A wider second-wave expansion could go beyond fitness if you choose to adapt the product more heavily. AppInstitute already markets no-code apps to restaurants, education, churches, beauty, bars, radio, and other small business types. That shows the broader idea of “a branded business app with communication, loyalty, booking, and community” can travel well across verticals. citeturn22view0turn22view1</p>
+<p>For your specific product, though, I would still start where your community proposition is strongest. Martial arts, yoga, small-group training, and wellness communities are the sharpest fit because they already operate like tribes, and your app turns that natural tribal feeling into a structured digital home.</p>
+<h2 id="open-questions-and-limitations">Open questions and limitations</h2>
+<p>The revenue examples above are illustrations, not forecasts. Your real numbers will depend on pricing, support costs, churn, average client size, payment volume, and how much premium content businesses are actually able to sell.</p>
+<p>There are also two important implementation questions you should settle early. First, decide whether you want to be mostly a software company, or partly a payments platform as well, because payments add operational complexity even though they create strong upside. Second, decide how premium digital purchases will be sold, because app-store commissions can materially affect margins when store billing rules apply. citeturn16view2turn15view13turn15view14turn27view5</p>
+<p>The cleanest commercial model, based on the market evidence, is this: <strong>charge a launch fee, charge a monthly platform fee, add a small payment margin, then layer premium member revenue and enterprise deals over time</strong>. That keeps the client offer simple, matches how comparable companies already make money, and gives you the best balance of predictability, scalability, and upside. citeturn14view0turn15view5turn15view7turn16view2turn31view0turn26view0</p>
+
+</body>
+</html>

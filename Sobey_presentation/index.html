@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sobey Fitness - Digital Community Blueprint</title>
+  <style>
+    /* 
+      VIBRANT & ENGAGING THEME
+      Glassmorphism, animated gradients, floating elements, and rich colours.
+    */
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+    :root {
+      /* Vibrant Color Palette */
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --green-grad: linear-gradient(135deg, #10b981, #059669);
+      --orange-grad: linear-gradient(135deg, #f91616, #ea580c);
+      --blue-grad: linear-gradient(135deg, #3b82f6, #2563eb);
+      --glass-bg: rgba(255, 255, 255, 0.85);
+      --glass-border: rgba(255, 255, 255, 0.5);
+      --shadow-soft: 0 20px 40px -10px rgba(0,0,0,0.1);
+      --shadow-glow: 0 10px 30px -10px rgba(16, 185, 129, 0.3);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      /* Animated Mesh Gradient Background */
+      background: linear-gradient(120deg, #e0f2fe, #fce7f3, #dcfce7, #fef3c7);
+      background-size: 300% 300%;
+      animation: gradientShift 15s ease infinite;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden; 
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-12px); }
+      100% { transform: translateY(0px); }
+    }
+
+    /* 16:9 Fixed Scale Container with Glass Effect */
+    .deck {
+      position: relative;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      width: 100%;
+      max-width: 1400px;
+      aspect-ratio: 16 / 9;
+      max-height: 95vh;
+      box-shadow: var(--shadow-soft), inset 0 0 0 1px var(--glass-border);
+      border-radius: 24px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      padding: 4vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(0.95) translateY(20px);
+      transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1) translateY(0);
+    }
+
+    /* Typography */
+    h1, h2, h3, p { margin: 0; }
+
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(36px, 4vw, 72px);
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+
+    /* Vibrant Gradient Text for Headers */
+    .text-gradient {
+      background: var(--orange-grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+
+    h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(28px, 3vw, 48px);
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 16px;
+    }
+
+    .subtitle {
+      font-size: clamp(16px, 1.5vw, 22px);
+      color: var(--text-muted);
+      line-height: 1.6;
+      font-weight: 500;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: white;
+      font-weight: 700;
+      margin-bottom: 16px;
+      padding: 8px 16px;
+      background: var(--green-grad);
+      border-radius: 30px;
+      box-shadow: var(--shadow-glow);
+    }
+
+    /* Layouts */
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5vw;
+      align-items: center;
+      height: 100%;
+    }
+
+    .text-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-right: 20px;
+    }
+
+    /* Colourful Bullet Points */
+    ul.bullet-list {
+      list-style: none;
+      padding: 0;
+      margin: 30px 0 0 0;
+    }
+
+    ul.bullet-list li {
+      position: relative;
+      padding-left: 36px;
+      margin-bottom: 24px;
+      font-size: clamp(15px, 1.2vw, 20px);
+      color: var(--text-main);
+      line-height: 1.5;
+      font-weight: 500;
+    }
+
+    ul.bullet-list li::before {
+      content: "✦";
+      position: absolute;
+      left: 0;
+      top: 2px;
+      font-size: 20px;
+      background: var(--orange-grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    ul.bullet-list li strong {
+      color: #059669; /* Green emphasis */
+      font-weight: 700;
+    }
+
+    /* Visual Areas */
+    .visual-container {
+      background: rgba(255, 255, 255, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      border-radius: 32px;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      padding: 20px;
+      overflow: hidden;
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.02);
+    }
+
+    .wireframe-img {
+      max-height: 70vh; 
+      width: auto;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px -10px rgba(0,0,0,0.15);
+      border: 2px solid white;
+      background: white;
+      animation: float 6s ease-in-out infinite; /* Floating effect */
+    }
+
+    .dual-wireframe {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .dual-wireframe img {
+      max-height: 60vh;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px -10px rgba(0,0,0,0.15);
+      border: 2px solid white;
+      animation: float 7s ease-in-out infinite;
+    }
+    
+    .dual-wireframe img:nth-child(2) {
+      animation-delay: 1.5s; /* Out of sync floating */
+    }
+
+    /* Transformation Slide UI */
+    .transformation-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3vw;
+      margin-top: 30px;
+      height: 60vh;
+    }
+    
+    .transformation-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100%;
+      justify-content: center;
+      transition: transform 0.3s ease;
+    }
+
+    .transformation-col:hover {
+      transform: translateY(-10px);
+    }
+
+    .transformation-col img {
+      max-height: 55vh;
+      width: auto;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px -10px rgba(0,0,0,0.15);
+      border: 4px solid white;
+    }
+
+    .arrow-divider {
+      font-size: 50px;
+      background: var(--blue-grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 800;
+    }
+
+    /* Colourful Cards for Ideas & AI */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 40px;
+    }
+
+    .idea-card {
+      background: white;
+      padding: 32px;
+      border-radius: 24px;
+      box-shadow: 0 10px 30px -10px rgba(0,0,0,0.08);
+      text-align: left;
+      border: 1px solid rgba(0,0,0,0.03);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .idea-card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 6px;
+      background: var(--green-grad);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .idea-card.orange-top::before { background: var(--orange-grad); }
+    .idea-card.blue-top::before { background: var(--blue-grad); }
+
+    .idea-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px -10px rgba(0,0,0,0.12);
+    }
+
+    .idea-card:hover::before { opacity: 1; }
+
+    .idea-card h3 {
+      font-size: 22px;
+      margin-bottom: 12px;
+      color: var(--text-main);
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .idea-card p {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .icon-wrapper {
+      width: 48px;
+      height: 48px;
+      background: #f1f5f9;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 16px;
+    }
+
+    /* Footer Navigation */
+    .nav-footer {
+      position: absolute;
+      bottom: 1.5vw;
+      left: 4vw;
+      right: 4vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+      padding-top: 15px;
+    }
+
+    .slide-counter {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+      background: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    .nav-buttons { display: flex; gap: 12px; }
+
+    button {
+      background: white;
+      border: none;
+      color: var(--text-main);
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      padding: 12px 24px;
+      border-radius: 30px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      transition: all 0.2s;
+    }
+
+    button:hover { 
+      transform: translateY(-2px);
+      box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    }
+    
+    button.primary { 
+      background: var(--text-main); 
+      color: white; 
+    }
+    button.primary:hover { 
+      background: #000; 
+    }
+  </style>
+</head>
+<body>
+
+  <div class="deck">
+
+    <!-- SLIDE 1: INTRO -->
+    <section class="slide active">
+      <div style="max-width: 900px; margin: auto; text-align: center;">
+        <span class="eyebrow">A Blueprint For Sobey Fitness</span>
+        <h1>Creating a digital home for the <span class="text-gradient">FitFam.</span></h1>
+        <p class="subtitle">An architectural walkthrough of a custom platform designed to centralise your bookings, cut out group-chat noise, and strengthen your community.</p>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: THE HUB (HOME PAGE) -->
+    <section class="slide">
+      <div class="split">
+        <div class="text-content">
+          <span class="eyebrow" style="background: var(--blue-grad);">1. The Home Hub</span>
+          <h2>A private social network.</h2>
+          <p class="subtitle">Rather than opening up to a boring calendar, the app opens to a living, breathing community feed dedicated entirely to Sobey Fitness.</p>
+          
+          <ul class="bullet-list">
+            <li><strong>Coach Visibility:</strong> Dan and Lisa's urgent announcements are "pinned" to the top, guaranteeing they are seen.</li>
+            <li><strong>Organic Meetups:</strong> Members can easily share a post to organize a weekend hike or a morning sunrise walk.</li>
+            <li><strong>Safe Space:</strong> A distraction-free environment away from the noise of Facebook and WhatsApp.</li>
+          </ul>
+        </div>
+        <div class="visual-container">
+          <!-- IMAGE 1: HOME HUB -->
+          <img src="../images/home.png" alt="Home Hub Wireframe" class="wireframe-img" onerror="this.src='https://via.placeholder.com/400x750/e2e8f0/64748b?text=Insert+Home+Hub+Image'">
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 3: BOOKINGS -->
+    <section class="slide">
+      <div class="split">
+        <div class="visual-container">
+          <!-- IMAGE 2: BOOKING SCREEN -->
+          <img src="../images/booking.png" alt="Booking Screen Wireframe" class="wireframe-img" onerror="this.src='https://via.placeholder.com/400x750/e2e8f0/64748b?text=Insert+Booking+Image'">
+        </div>
+        <div class="text-content">
+          <span class="eyebrow" style="background: var(--orange-grad);">2. Class Bookings</span>
+          <h2>Everything in one place.</h2>
+          <p class="subtitle">No more sending members to external websites, web-browsers, or clunky third-party apps just to book an Urban Gym session.</p>
+          
+          <ul class="bullet-list">
+            <li><strong>The Ecosystem:</strong> Members chat, view updates, and book classes all under one single roof.</li>
+            <li><strong>Clean Logistics:</strong> A fast, chronological schedule that removes the friction of securing a spot.</li>
+            <li><strong>Optional Social Draw:</strong> We can show avatars of friends who have booked the same class, creating a natural pull to fill empty slots.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 4: HANGOUTS & CHATS -->
+    <section class="slide">
+      <div class="split">
+        <div class="text-content">
+          <span class="eyebrow">3. Dedicated Chats</span>
+          <h2>Cut the noise.<br>Organise effortlessly.</h2>
+          <p class="subtitle">Information gets buried when you are bombarded with texts 24/7 in massive WhatsApp groups. This solves that problem entirely.</p>
+          
+          <ul class="bullet-list">
+            <li><strong>Event Interest:</strong> A member posts a hangout idea to the main feed (e.g., "Saturday Beach Swim").</li>
+            <li><strong>Auto-Chat Creation:</strong> When others click "Join", they are instantly placed into a separate, dedicated chat just for that event.</li>
+            <li><strong>Focused Details:</strong> Questions about parking or times stay inside that one chat, keeping the main feed clean.</li>
+          </ul>
+        </div>
+        <div class="visual-container dual-wireframe">
+          <!-- IMAGE 3: CHAT LIST -->
+          <img src="chat_list.png" alt="Chat List Wireframe" onerror="this.src='https://via.placeholder.com/300x600/e2e8f0/64748b?text=Insert+Chat+List'">
+          <!-- IMAGE 4: HUB POST -->
+          <img src="../images/chats.png" alt="Hub Wireframe" onerror="this.src='https://via.placeholder.com/300x600/e2e8f0/64748b?text=Insert+Hub+Post'">
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 5: VISUAL TRANSFORMATION -->
+    <section class="slide">
+      <div style="text-align: center; max-width: 900px; margin: 0 auto;">
+        <span class="eyebrow" style="background: var(--orange-grad);">Design Personalisation</span>
+        <h2>From Blueprint to Brand</h2>
+        <p class="subtitle">The wireframes are just the foundation. Once we understand the layout, we inject the specific energy, colours, and personality of Sobey Fitness.</p>
+      </div>
+
+      <div class="transformation-box">
+        <!-- Bare Wireframe -->
+        <div class="transformation-col">
+          <p style="margin-bottom: 12px; font-weight: 700; color: var(--text-main); font-size: 15px;">The Skeleton</p>
+          <img src="../images/home.png" alt="Wireframe" onerror="this.src='https://via.placeholder.com/280x560/e2e8f0/64748b?text=Your+Wireframe'">
+        </div>
+        
+        <div class="arrow-divider">→</div>
+
+        <!-- Coloured Example 1 -->
+        <div class="transformation-col">
+          <p style="margin-bottom: 12px; font-weight: 700; color: var(--text-main); font-size: 15px;">Example 1</p>
+          <img src="./example_light.png" alt="Coloured Example 1" onerror="this.src='https://via.placeholder.com/280x560/1a1e23/ffffff?text=Coloured+Vibe+1'">
+        </div>
+
+        <!-- Coloured Example 2 -->
+        <div class="transformation-col">
+          <p style="margin-bottom: 12px; font-weight: 700; color: var(--text-main); font-size: 15px;">Example 2</p>
+          <img src="./example_dark.png" alt="Coloured Example 2" onerror="this.src='https://via.placeholder.com/280x560/2e7d32/ffffff?text=Coloured+Vibe+2'">
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 6: AI IMPLEMENTATION -->
+    <section class="slide">
+      <div style="max-width: 1000px; margin: 0 auto; text-align: center;">
+        <span class="eyebrow" style="background: var(--blue-grad);">Smart Tech</span>
+        <h2>Working smarter, not harder.</h2>
+        <p class="subtitle">We can weave subtle AI into the background of the app to protect your personal time while keeping members highly engaged.</p>
+        
+        <div class="grid-3">
+          <div class="idea-card blue-top">
+            <div class="icon-wrapper">🤖</div>
+            <h3>The "Dan" Bot</h3>
+            <p>An automated assistant trained to answer basic FAQs (class times, pricing). It replies instantly in your exact tone of voice, saving you hours of texting.</p>
+          </div>
+          <div class="idea-card orange-top">
+            <div class="icon-wrapper">🤝</div>
+            <h3>Smart Matchmaking</h3>
+            <p>If a new member is nervous about attending Brute Camp alone, the AI can match them with a veteran member for a pre-class chat to break the ice.</p>
+          </div>
+          <div class="idea-card">
+            <div class="icon-wrapper">🛡️</div>
+            <h3>Human Escalation</h3>
+            <p>The AI handles the repetitive noise, but always leaves a button for the member to request a direct message with you if they need real human coaching.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 7: THE SUGGESTIONS -->
+    <section class="slide">
+      <div style="max-width: 1000px; margin: 0 auto; text-align: center;">
+        <span class="eyebrow">Looking Ahead</span>
+        <h2>Optional Expansions</h2>
+        <p class="subtitle">The goal is to start simple. However, when you are ready, the platform is built to seamlessly support these future additions.</p>
+        
+        <div class="grid-3">
+          <div class="idea-card">
+            <div class="icon-wrapper">✅</div>
+            <h3>Personalised Tasks</h3>
+            <p>Set members daily homework outside of class. Whether it's a 10-minute walk, a hydration goal, or a mobility routine, it keeps them engaged on rest days.</p>
+          </div>
+          <div class="idea-card">
+            <div class="icon-wrapper">📔</div>
+            <h3>Progress Journals</h3>
+            <p>Instead of just logging reps, members can track how they *felt* after a session. A qualitative mental health check-in that aligns with your wellness approach.</p>
+          </div>
+          <div class="idea-card">
+            <div class="icon-wrapper">🏆</div>
+            <h3>Challenge Streaks</h3>
+            <p>Automated trackers that celebrate consistency. When a member hits a 10-class streak, the app prompts them to share their win directly to the Home Hub.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 8: CONCLUSION -->
+    <section class="slide">
+      <div style="max-width: 800px; margin: auto; text-align: center;">
+        <h2>A collaborative process.</h2>
+        <p class="subtitle" style="margin-bottom: 40px;">These wireframes are just the architectural skeleton. If you like the logic, the next step is layering your brand colours, your terminology, and the Sobey Fitness energy on top of it.</p>
+        
+        <div style="display: inline-block; text-align: left; background: white; padding: 40px; border-radius: 24px; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1);">
+          <p style="font-family: 'Outfit', sans-serif; font-size: 22px; font-weight: 700; margin-bottom: 16px; color: var(--text-main);">Next Steps (if you choose to proceed):</p>
+          <ul class="bullet-list" style="margin-top: 0;">
+            <li>Select the core features you want to launch with.</li>
+            <li>We design a high-fidelity, branded prototype.</li>
+            <li>You test it on your phone before anything is coded.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- NAVIGATION FOOTER -->
+    <div class="nav-footer">
+      <div class="slide-counter"><span id="current-slide">1</span> / 8</div>
+      <div class="nav-buttons">
+        <button data-action="prev">Back</button>
+        <button class="primary" data-action="next">Next Slide</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const counter = document.getElementById('current-slide');
+    const totalSlides = slides.length;
+    let index = 0;
+
+    function render() {
+      slides.forEach((slide, i) => {
+        if (i === index) {
+          slide.classList.add('active');
+        } else {
+          slide.classList.remove('active');
+        }
+      });
+      counter.innerText = index + 1;
+    }
+
+    function next() { 
+      if (index < totalSlides - 1) {
+        index++;
+        render();
+      }
+    }
+    
+    function prev() { 
+      if (index > 0) {
+        index--;
+        render();
+      }
+    }
+
+    document.addEventListener('click', (e) => {
+      if (e.target?.dataset?.action === 'next') next();
+      if (e.target?.dataset?.action === 'prev') prev();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); next(); }
+      if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); prev(); }
+      if (e.key === 'Home') { e.preventDefault(); index = 0; render(); }
+      if (e.key === 'End') { e.preventDefault(); index = totalSlides - 1; render(); }
+    });
+
+    render();
+  </script>
+</body>
+</html>
